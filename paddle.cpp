@@ -34,12 +34,7 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 
 	paddle.elems[] = {0,1,2,3,4};
 
-	//TODO -- write our shaders
-	paddle.shaders[]={
-	    { GL_VERTEX_SHADER , "paddlevertexshader.glsl"},
-	    { GL_FRAGMENT_SHADER , "paddlefragmentshader.glsl"},
-	    { GL_NONE , NULL}
-	};
+	
 };
 
 void GLPong_PaddleMove(Paddle_t * paddle, GLfloat x, GLfloat y){

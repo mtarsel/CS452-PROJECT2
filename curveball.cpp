@@ -3,6 +3,7 @@
 //includes for paddles and balls
 #include "paddle.h"
 #include "ball.h"
+#include "shaders.h"
 
 /*static int  GLPong_Init(GLPong_t * GLPong);
 static int  GLPong_HandleEvents(void);
@@ -82,6 +83,13 @@ int main(int argc, char * argv[]) {
     		SDL_Quit();
     		exit(1);
     	}
+    	
+    	//TODO -- write our shaders
+	ShaderInfo shaders[]={
+	    { GL_VERTEX_SHADER , "vertexshader.glsl"},
+	    { GL_FRAGMENT_SHADER , "fragmentshader.glsl"},
+	    { GL_NONE , NULL}
+	};
 	
 	
 	while (!done) {

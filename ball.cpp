@@ -66,10 +66,10 @@ GLPong_BallInit(Ball_t * ball) {
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	//This is what we'll be using for the geometry of the ball -- changeme
-	ball.vertexarray[]={-ball.w, ball.h, 0.0f	//Lower Left
-			     ball.w, ball.h, 0.0f		//Lower Right
-			     ball.w, -ball.h, 0.0f	//Upper Right
-			     -ball.w, -ball.h, 0.0f	//Upper Left
+	ball.vertexarray[]={-ball.w, ball.h, ball.z,	//Lower Left
+			     ball.w, ball.h, ball.z,		//Lower Right
+			     ball.w, -ball.h, ball.z,	//Upper Right
+			     -ball.w, -ball.h, ball.z	//Upper Left
 	};
 		     
 	ball.normalsarray[] = {-normalVector,normalVector,0.0f,	//Lower Left
@@ -79,29 +79,6 @@ GLPong_BallInit(Ball_t * ball) {
 	};
 
 	ball.elems[] = {0,1,2,3,4};
-
-	//TODO -- write our shaders
-	ball.shaders[]={
-  	  { GL_VERTEX_SHADER , "ballvertexshader.glsl"},
- 	  { GL_FRAGMENT_SHADER , "ballfragmentshader.glsl"},
- 	  { GL_NONE , NULL}
-	};
-
-/*
-	ball->w = 0.5f;
-	ball->h = 0.5f;
-	ball->x = -(ball->w / 2);
-	ball->y = -(ball->h / 2);
-	ball->z = GLPONG_FRONT_Z;
-	ball->r = 1.0f;
-	ball->g = 0.0f;
-	ball->b = 0.0f;
-	ball->xv = 0.02f;
-	ball->yv = 0.01f;
-	ball->zv = -0.05f;
-
-	ball_texture = texture;
-	*/
 }
 
 void
