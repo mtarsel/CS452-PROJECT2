@@ -1,5 +1,5 @@
 CFLAGS = `pkg-config --cflags --libs sdl2`
-LIB = -lglut -lGLU -lGL -lGLEW 
+LIB = -lglut -lGLU -lGLEW -lGL 
 
 run: curveball.cpp
 	g++ curveball.cpp -g $(LIB) $(CFLAGS) -o flyer
