@@ -2,20 +2,18 @@
 //#include "shaders.h"
 
 void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
-	
 
+	
 	//THIS IS THE TRANSLATION
 	GLfloat trans_vert_array[12];
 	int i;
 	for(i=0; i<12; i++){
 		if((i%3)==0) trans_vert_array[i]=paddle->vertexarray[i]+(x_trans/350);
-		else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
+		//else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
+		else if((i%3)==2) trans_vert_array[i]=paddle->vertexarray[i]+(y_trans/200);
 		else trans_vert_array[i]=paddle->vertexarray[i];
-		//printf("%f ", trans_vert_array[i]);
+		
 	}
-	//printf("%f, %f\n", x_trans, y_trans);
-	//printf("\n");
-	//printf("%i, %i\n", x_trans, y_trans);
 	
 	glGenVertexArrays(1,&paddle->vaoID);
 	glBindVertexArray(paddle->vaoID);
@@ -33,17 +31,15 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, G
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,paddle->eboID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(paddle->elems),paddle->elems,GL_STATIC_DRAW);
 
-	
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);	
   
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	
 	
-	
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	
 	glDrawElements(GL_QUADS,12,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
+	
 	SDL_GL_SwapWindow(screen);
 
 	
@@ -60,16 +56,15 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	//glEnable(GL_LIGHT1);
 	//glEnable(GL_NORMALIZE);
 	
-
+ 
 	glViewport(0, 0, 640, 640);
-	
 	//GLuint program;
 	
 	GLfloat size=.4;
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={size,size/1.5,0.0,
-				size,-size/1.5,0.0,
+												size,-size/1.5,0.0,
                        -size,-size/1.5,0.0,
                        -size,size/1.5,0.0
                        };

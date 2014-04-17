@@ -4,6 +4,7 @@
 #include "paddle.h"
 #include "ball.h"
 #include "shaders.h"
+#include "globals.h"
 
 void mouse_kb_input(SDL_Window* screen,int * x_trans, int * y_trans){
 
@@ -62,13 +63,31 @@ int main(int argc, char * argv[]) {
 	}
   
 	//Load our shaders into the "program" variable
-	//GLuint program;
+	GLuint program;
 	ShaderInfo shaders[]={
 		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
 		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
 		{ GL_NONE , NULL} 
 	};
-	initShaders(shaders);	
+	program = initShaders(shaders);	
+	
+		
+
+	glm::mat4 Model, View, Projection;
+	
+  Projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+
+
+	// Transfer the transformation matrices to the shader program
+  GLint model = glGetUniformLocation(program, "modelMatrix" );
+  glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
+
+  GLint view = glGetUniformLocation(program, "viewMatrix" );
+  glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(View));
+
+  GLint projection = glGetUniformLocation(program, "projMatrix" );
+  glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
+	
 	//program=initShaders(shaders);
   
 	//init();
