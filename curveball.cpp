@@ -4,7 +4,7 @@
 #include "paddle.h"
 #include "ball.h"
 #include "shaders.h"
-//#include "shaders.h"
+
 
 /*static int  GLPong_Init(GLPong_t * GLPong);
 static int  GLPong_HandleEvents(void);
@@ -15,7 +15,7 @@ static void GLPong_Move(GLPong_t * GLPong);
 static void SDL_GL_GetMouseState(GLfloat * x, GLfloat * y);
 static GLuint SDL_GL_SurfaceToTexture(SDL_Surface * surface);*/
 
-GLuint vaoID,vboID[2],eboID;
+/*GLuint vaoID,vboID[2],eboID;
 GLuint program;
 
 GLfloat size=.5;
@@ -47,18 +47,21 @@ GLubyte elems[]={0,1,2,3,
      		     5,6,2,1,
      		     0,1,5,4,
 		     7,3,2,6};
-
+*/
 void input(SDL_Window* screen){
 
   SDL_Event event;
 
   while (SDL_PollEvent(&event)){//Handling the keyboard
-    switch (event.type){
-    case SDL_QUIT:exit(0);break;
-    case SDL_KEYDOWN:
-      switch(event.key.keysym.sym){
-      case SDLK_ESCAPE:exit(0);
-      }
+  	int x,y;
+  	SDL_GetMouseState(&x,&y);
+  	x=x-(WINDOW_SIZE/2);
+  	y=y-(WINDOW_SIZE/2);
+  	printf("%i, %i\n", x, y);
+   	switch (event.type){
+    	case SDL_QUIT:exit(0);break;
+    	case SDL_KEYDOWN:
+      if(event.key.keysym.sym == SDLK_ESCAPE) exit(0);
     }
   }
 }
@@ -73,7 +76,7 @@ void display(SDL_Window* screen){
 }
 
 int init(){
-	
+	/*
 	//glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	//glEnable(GL_LIGHTING);
@@ -109,7 +112,7 @@ int init(){
   
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-
+*/
 }
 
 int main(int argc, char * argv[]) {
@@ -148,11 +151,24 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
   
-	init();
+	//Load our shaders into the "program" variable
+	//GLuint program;
+	ShaderInfo shaders[]={
+		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
+		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
+		{ GL_NONE , NULL} 
+	};
+	initShaders(shaders);	
+	//program=initShaders(shaders);
+  
+	//init();
 	
+	Paddle_t testpaddle;
+	GLPong_PaddleInit(&testpaddle);
 	while(true){
 		input(window);//keyboard controls
-		display(window);//displaying
+		//display(window);//displaying
+		GLPong_PaddleDraw(&testpaddle, window);
 	}
 
 	SDL_GL_DeleteContext(glcontext);

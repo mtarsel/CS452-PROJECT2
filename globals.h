@@ -28,5 +28,7 @@
 #include "paddle.h"
 #include "ball.h"
 
+#define WINDOW_SIZE 640
+
 
 #endif

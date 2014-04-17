@@ -2,6 +2,7 @@
 #define CURVEBALL_H
 
 #include "globals.h"
+#include "paddle.h"
 
 #define GLPONG_WIDTH    800.0f
 #define GLPONG_HEIGHT   600.0f
@@ -24,13 +25,13 @@
 #define AMASK 0xff000000
 #endif
 
-typedef struct {
+/*typedef struct {
         Paddle_t front_paddle;
         Paddle_t back_paddle;
         Ball_t ball;
 } GLPong_t;
 
 GLuint box;
-
+*/
 #endif
 

@@ -2,20 +2,20 @@
 #define PADDLE_H
 
 #include "globals.h"
-#include "shaders.h"
 
 typedef struct {
         GLfloat x, y, z;
         GLfloat prev_x, prev_y;
-        GLfloat vertexarray[];
-        GLfloat normalsarray[];
-        GLubyte elems[];
-        ShaderInfo shaders[];
+        GLfloat vertexarray[12];
+        GLfloat normalsarray[12];
+        GLfloat colorarray[12];
+        GLubyte elems[12];
+        GLuint vaoID,vboID[2],eboID;//buffer objects
 } Paddle_t;
 
-void GLPong_PaddleDraw(const Paddle_t * paddle);
+void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen);
 void GLPong_PaddleInit(Paddle_t * paddle);
-void GLPong_PaddleMove(Paddle_t * paddle, GLfloat x, GLfloat y);
+void GLPong_PaddleMove(Paddle_t paddle, GLfloat x, GLfloat y);
 
 /*
 static inline GLfloat
