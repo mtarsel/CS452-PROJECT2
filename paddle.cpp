@@ -10,7 +10,7 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, G
 	for(i=0; i<12; i++){
 		if((i%3)==0) trans_vert_array[i]=paddle->vertexarray[i]+(x_trans/350);
 		//else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
-		else if((i%3)==2) trans_vert_array[i]=paddle->vertexarray[i]+(y_trans/200);
+		else if((i%3)==2) trans_vert_array[i]=paddle->vertexarray[i]+(y_trans/350);
 		else trans_vert_array[i]=paddle->vertexarray[i];
 		
 	}
@@ -64,7 +64,7 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={size,size/1.5,0.0,
-												size,-size/1.5,0.0,
+				size,-size/1.5,0.0,
                        -size,-size/1.5,0.0,
                        -size,size/1.5,0.0
                        };
