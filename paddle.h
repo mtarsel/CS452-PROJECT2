@@ -15,18 +15,7 @@ typedef struct {
 
 void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans);
 void GLPong_PaddleInit(Paddle_t * paddle);
-void GLPong_PaddleMove(Paddle_t * paddle, GLfloat * array, int x, int y);
 
-/*
-static inline GLfloat
-GLPong_PaddleXV(const Paddle_t * paddle) {
-        return paddle->x - paddle->prev_x;
-}
 
-static inline GLfloat
-GLPong_PaddleYV(const Paddle_t * paddle) {
-        return paddle->y - paddle->prev_y;
-}
-*/
 #endif /* PADDLE_H */
 

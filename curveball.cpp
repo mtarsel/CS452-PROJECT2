@@ -5,49 +5,6 @@
 #include "ball.h"
 #include "shaders.h"
 
-
-/*static int  GLPong_Init(GLPong_t * GLPong);
-static int  GLPong_HandleEvents(void);
-static void GLPong_Draw(const GLPong_t * GLPong);
-static bool GLPong_Collide(const Ball_t * ball, const Paddle_t * paddle);
-static void GLPong_CleanUp(void);
-static void GLPong_Move(GLPong_t * GLPong);
-static void SDL_GL_GetMouseState(GLfloat * x, GLfloat * y);
-static GLuint SDL_GL_SurfaceToTexture(SDL_Surface * surface);*/
-
-/*GLuint vaoID,vboID[2],eboID;
-GLuint program;
-
-GLfloat size=.5;
-GLfloat normalVector = 1.0f / sqrt(3.0f);
-
-GLfloat vertexarray[]={size,size,-size,
-				size,-size,-size,
-                       -size,-size,-size,
-                       -size,size,-size,
-                       size,size,size,
-                       size,-size,size,
-                       -size,-size,size,
-                       -size,size,size
-                       };
-
-GLfloat normalsarray[] = {normalVector,normalVector,-normalVector,
-                       normalVector,-normalVector,-normalVector,
-                       -normalVector,-normalVector,-normalVector,
-                       -normalVector,normalVector,-normalVector,
-                       normalVector,normalVector,normalVector,
-                       normalVector,-normalVector,normalVector,
-                       -normalVector,-normalVector,normalVector,
-                       -normalVector,normalVector,normalVector
-};
-					   									
-GLubyte elems[]={0,1,2,3,
-		     7,4,5,6,
-     		     7,3,0,4,
-     		     5,6,2,1,
-     		     0,1,5,4,
-		     7,3,2,6};
-*/
 void mouse_kb_input(SDL_Window* screen,int * x_trans, int * y_trans){
 
   SDL_Event event;
@@ -67,18 +24,6 @@ void mouse_kb_input(SDL_Window* screen,int * x_trans, int * y_trans){
   }
 }
 
-void display(SDL_Window* screen){
-	
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	
-	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
-	glFlush();
-	SDL_GL_SwapWindow(screen);
-}
-
-int init(){
-
-}
 
 int main(int argc, char * argv[]) {
 	//SDL window and context management

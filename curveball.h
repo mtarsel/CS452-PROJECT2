@@ -25,13 +25,5 @@
 #define AMASK 0xff000000
 #endif
 
-/*typedef struct {
-        Paddle_t front_paddle;
-        Paddle_t back_paddle;
-        Ball_t ball;
-} GLPong_t;
-
-GLuint box;
-*/
 #endif
 

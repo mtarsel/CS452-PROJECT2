@@ -3,14 +3,8 @@
 
 void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
 	
-	//glEnable(GL_DEPTH_TEST);
-	glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
-	//glEnable(GL_NORMALIZE);
 
-	//THIS IS THE TRANFORMATION
+	//THIS IS THE TRANSLATION
 	GLfloat trans_vert_array[12];
 	int i;
 	for(i=0; i<12; i++){
@@ -22,7 +16,6 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, G
 	//printf("%f, %f\n", x_trans, y_trans);
 	//printf("\n");
 	//printf("%i, %i\n", x_trans, y_trans);
-	glViewport(0, 0, 640, 640);
 	
 	glGenVertexArrays(1,&paddle->vaoID);
 	glBindVertexArray(paddle->vaoID);
@@ -60,18 +53,25 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, G
 /* --------------------------------- IF YOU CHANGE THESE SIZES, change the declarations in the header file -------------------------- */
 void GLPong_PaddleInit(Paddle_t * paddle){
 
+	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHT1);
+	//glEnable(GL_NORMALIZE);
 	
 
+	glViewport(0, 0, 640, 640);
 	
 	//GLuint program;
 	
-	GLfloat size=.5;
+	GLfloat size=.4;
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
-	GLfloat vertexarray[]={size,size,0.0,
-				size,-size,0.0,
-                       -size,-size,0.0,
-                       -size,size,0.0
+	GLfloat vertexarray[]={size,size/1.5,0.0,
+				size,-size/1.5,0.0,
+                       -size,-size/1.5,0.0,
+                       -size,size/1.5,0.0
                        };
       
 
@@ -97,7 +97,4 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	
 };
 
-void GLPong_PaddleMove(Paddle_t * paddle, GLfloat * array, int x, int y){
-	int i;
-	
-};
+
