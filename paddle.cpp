@@ -1,7 +1,7 @@
 #include "paddle.h"
 //#include "shaders.h"
 
-void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen){
+void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
 	
 	//glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
@@ -9,8 +9,19 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen){
 	//glEnable(GL_LIGHT0);
 	//glEnable(GL_LIGHT1);
 	//glEnable(GL_NORMALIZE);
-	
-	
+
+	//THIS IS THE TRANFORMATION
+	GLfloat trans_vert_array[12];
+	int i;
+	for(i=0; i<12; i++){
+		if((i%3)==0) trans_vert_array[i]=paddle->vertexarray[i]+(x_trans/350);
+		else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
+		else trans_vert_array[i]=paddle->vertexarray[i];
+		//printf("%f ", trans_vert_array[i]);
+	}
+	//printf("%f, %f\n", x_trans, y_trans);
+	//printf("\n");
+	//printf("%i, %i\n", x_trans, y_trans);
 	glViewport(0, 0, 640, 640);
 	
 	glGenVertexArrays(1,&paddle->vaoID);
@@ -18,7 +29,7 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen){
 	
 	glGenBuffers(2, paddle->vboID);
 	glBindBuffer(GL_ARRAY_BUFFER,paddle->vboID[0]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(paddle->vertexarray),paddle->vertexarray,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(trans_vert_array),trans_vert_array,GL_STATIC_DRAW);
 	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, paddle->vboID[1]);
@@ -76,6 +87,7 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	//copy the vertex and normal arrays into the paddle object.     
 	int i;
 	for(i=0;i<12;i++){
+		
 		paddle->vertexarray[i]=vertexarray[i];
 		paddle->normalsarray[i]=normalsarray[i];
 	}
@@ -85,6 +97,7 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	
 };
 
-void GLPong_PaddleMove(Paddle_t * paddle, GLfloat x, GLfloat y){
-
+void GLPong_PaddleMove(Paddle_t * paddle, GLfloat * array, int x, int y){
+	int i;
+	
 };

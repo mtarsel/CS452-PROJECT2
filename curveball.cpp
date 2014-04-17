@@ -48,7 +48,7 @@ GLubyte elems[]={0,1,2,3,
      		     0,1,5,4,
 		     7,3,2,6};
 */
-void input(SDL_Window* screen){
+void mouse_kb_input(SDL_Window* screen,int * x_trans, int * y_trans){
 
   SDL_Event event;
 
@@ -57,7 +57,8 @@ void input(SDL_Window* screen){
   	SDL_GetMouseState(&x,&y);
   	x=x-(WINDOW_SIZE/2);
   	y=y-(WINDOW_SIZE/2);
-  	printf("%i, %i\n", x, y);
+  	memcpy(x_trans, &x, sizeof(int));
+  	memcpy(y_trans, &y, sizeof(int));
    	switch (event.type){
     	case SDL_QUIT:exit(0);break;
     	case SDL_KEYDOWN:
@@ -76,43 +77,7 @@ void display(SDL_Window* screen){
 }
 
 int init(){
-	/*
-	//glEnable(GL_DEPTH_TEST);
-	glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
-	//glEnable(GL_NORMALIZE);
-	
-	glViewport(0, 0, 640, 640);
-	
-	glGenVertexArrays(1,&vaoID);
-	glBindVertexArray(vaoID);
-	
-	glGenBuffers(2, vboID);
-	glBindBuffer(GL_ARRAY_BUFFER,vboID[0]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(vertexarray),vertexarray,GL_STATIC_DRAW);
-	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, vboID[1]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(normalsarray),normalsarray,GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	
-	glGenBuffers(1,&eboID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,eboID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(elems),elems,GL_STATIC_DRAW);
 
-	ShaderInfo shaders[]={
-		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
-		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
-		{ GL_NONE , NULL} 
-	};
-		
-	program=initShaders(shaders);
-  
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-*/
 }
 
 int main(int argc, char * argv[]) {
@@ -165,10 +130,10 @@ int main(int argc, char * argv[]) {
 	
 	Paddle_t testpaddle;
 	GLPong_PaddleInit(&testpaddle);
+	int x_trans,y_trans;
 	while(true){
-		input(window);//keyboard controls
-		//display(window);//displaying
-		GLPong_PaddleDraw(&testpaddle, window);
+		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
+		GLPong_PaddleDraw(&testpaddle, window, x_trans, y_trans);
 	}
 
 	SDL_GL_DeleteContext(glcontext);

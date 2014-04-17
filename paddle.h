@@ -13,9 +13,9 @@ typedef struct {
         GLuint vaoID,vboID[2],eboID;//buffer objects
 } Paddle_t;
 
-void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen);
+void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans);
 void GLPong_PaddleInit(Paddle_t * paddle);
-void GLPong_PaddleMove(Paddle_t paddle, GLfloat x, GLfloat y);
+void GLPong_PaddleMove(Paddle_t * paddle, GLfloat * array, int x, int y);
 
 /*
 static inline GLfloat
