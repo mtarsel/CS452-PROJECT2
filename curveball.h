@@ -2,7 +2,7 @@
 #define CURVEBALL_H
 
 #include "globals.h"
-#include "paddle.h"
+#include "environment.h"
 
 #define GLPONG_WIDTH    800.0f
 #define GLPONG_HEIGHT   600.0f

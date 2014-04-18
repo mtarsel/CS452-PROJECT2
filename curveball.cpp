@@ -1,7 +1,7 @@
 #include "curveball.h"
 
 //includes for paddles and balls
-#include "paddle.h"
+#include "environment.h"
 #include "ball.h"
 #include "shaders.h"
 #include "globals.h"
@@ -62,7 +62,13 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
   
-	//Load our shaders into the "program" variable
+	
+	
+		
+
+	glm::mat4 Model;
+	
+  //Load our shaders into the "program" variable
 	GLuint program;
 	ShaderInfo shaders[]={
 		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
@@ -70,35 +76,21 @@ int main(int argc, char * argv[]) {
 		{ GL_NONE , NULL} 
 	};
 	program = initShaders(shaders);	
-	
 		
-
-	glm::mat4 Model;
-	
-  	//BUTTHOLES = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
-
 	// Transfer the transformation matrices to the shader program
-  	GLint model = glGetUniformLocation(program, "modelMatrix" );
-  	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
-
-  	//GLint view = glGetUniformLocation(program, "viewMatrix" );
-  	//glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(View));
-
-  	//GLint projection = glGetUniformLocation(program, "projMatrix" );
-  	//glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
-	
-	//program=initShaders(shaders);
-  
-	//init();
+  GLint model = glGetUniformLocation(program, "modelMatrix" );
+  glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
 	
 	Paddle_t testpaddle;
-	GLPong_PaddleInit(&testpaddle);
+	PaddleInit(&testpaddle);
 	int x_trans,y_trans;
 	while(true){
+	
 		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
 		//clear the screen before rendering a new frame
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-		GLPong_PaddleDraw(&testpaddle, window, x_trans, y_trans);
+		PaddleDraw(&testpaddle, window, x_trans, y_trans);
+		
 	}
 
 	SDL_GL_DeleteContext(glcontext);

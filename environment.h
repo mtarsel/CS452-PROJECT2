@@ -13,8 +13,8 @@ typedef struct {
         GLuint vaoID,vboID[2],eboID;//buffer objects
 } Paddle_t;
 
-void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans);
-void GLPong_PaddleInit(Paddle_t * paddle);
+void PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans);
+void PaddleInit(Paddle_t * paddle);
 
 
 #endif /* PADDLE_H */

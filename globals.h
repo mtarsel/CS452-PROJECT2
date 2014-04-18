@@ -26,7 +26,7 @@
 #include "curveball.h"
 //#include "text.h"
 #include "fps.h"
-#include "paddle.h"
+#include "environment.h"
 #include "ball.h"
 
 #define WINDOW_SIZE 640

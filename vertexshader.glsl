@@ -22,8 +22,9 @@ mat4 scaleMatrix = mat4(
 );
 
 void main(){
-  gl_Position=modelMatrix*scaleMatrix*vec4(in_position,1.0);
   out_color=in_color;
+  gl_Position=modelMatrix*scaleMatrix*vec4(in_position,1.0);
+  
   //gl_Position=projMatrix*viewMatrix*modelMatrix*vec4(in_position,1.0);
   //f_texcoord = texcoord;
 }

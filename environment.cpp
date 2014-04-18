@@ -1,7 +1,7 @@
-#include "paddle.h"
+#include "environment.h"
 //#include "shaders.h"
 
-void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
+void PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
 
 	//glGenVertexArrays(1,&paddle->vaoID);
 	//glGenBuffers(2, paddle->vboID);
@@ -49,15 +49,15 @@ void GLPong_PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, G
 	
 };
 
-/* --------------------------------- IF YOU CHANGE THESE SIZES, change the declarations in the header file -------------------------- */
-void GLPong_PaddleInit(Paddle_t * paddle){
+/* --------------------------------- IF YOU CHANGE THESE SIZES, change the declarations in the header file. Global declarations are probably a good idea -------------------------- */
+void PaddleInit(Paddle_t * paddle){
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glEnable(GL_LIGHT1);
-	//glEnable(GL_NORMALIZE);
+	glEnable(GL_NORMALIZE);
 	
 	//generate the buffers in the init to save resources
 	glGenVertexArrays(1,&paddle->vaoID);
@@ -72,7 +72,7 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={size,size/1.5,0.0f,
-				size,-size/1.5,0.0f,
+												size,-size/1.5,0.0f,
                        -size,-size/1.5,0.0f,
                        -size,size/1.5,0.0f
                        };
@@ -103,10 +103,9 @@ void GLPong_PaddleInit(Paddle_t * paddle){
 	for(i=0; i<4; i++){
 		paddle->elems[i]=elems[i];
 	}
-	memcpy(paddle->colorarray, colorarray, 16);
-	//for(i=0; i<16; i++){
-	//	paddle->colorarray[i]=colorarray[i];
-	//}
+	for(i=0; i<16; i++){
+		paddle->colorarray[i]=colorarray[i];
+	}
 }
 
 
