@@ -51,6 +51,8 @@ int main(int argc, char * argv[]) {
 		fprintf(stderr,"Unable to create window: %s\n",SDL_GetError());
 	}
 	
+	//remove cursor
+	SDL_ShowCursor(0);
 
 	//creates opengl context associated with the window
 	SDL_GLContext glcontext=SDL_GL_CreateContext(window);
