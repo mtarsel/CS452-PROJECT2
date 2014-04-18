@@ -10,7 +10,7 @@ uniform mat4 modelMatrix;
 in vec3 in_position;
 
 in vec4 in_color;
-out vec4 out_color;
+out vec4 pass_color;
 
 float scale = 1-in_position[2];
 
@@ -22,7 +22,7 @@ mat4 scaleMatrix = mat4(
 );
 
 void main(){
-  out_color=in_color;
+  pass_color=in_color;
   gl_Position=modelMatrix*scaleMatrix*vec4(in_position,1.0);
   
   //gl_Position=projMatrix*viewMatrix*modelMatrix*vec4(in_position,1.0);

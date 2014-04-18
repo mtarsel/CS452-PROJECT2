@@ -81,7 +81,12 @@ int main(int argc, char * argv[]) {
   GLint model = glGetUniformLocation(program, "modelMatrix" );
   glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
 	
+	Walls_t walls;
 	Paddle_t testpaddle;
+	
+	// ---- This messes up the layering for some reason so it's commmented out for now
+	//EnvironmentInit();
+	WallsInit(&walls);
 	PaddleInit(&testpaddle);
 	int x_trans,y_trans;
 	while(true){
@@ -89,8 +94,10 @@ int main(int argc, char * argv[]) {
 		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
 		//clear the screen before rendering a new frame
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-		PaddleDraw(&testpaddle, window, x_trans, y_trans);
 		
+		WallsDraw(&walls, window);
+		PaddleDraw(&testpaddle, window, x_trans, y_trans);
+		SDL_GL_SwapWindow(window);
 	}
 
 	SDL_GL_DeleteContext(glcontext);
