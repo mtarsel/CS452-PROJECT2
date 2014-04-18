@@ -8,7 +8,7 @@ typedef struct {
         GLfloat prev_x, prev_y;
         GLfloat vertexarray[12];
         GLfloat normalsarray[12];
-        GLfloat colorarray[12];
+        GLfloat colorarray[16];
         GLubyte elems[12];
         GLuint vaoID,vboID[2],eboID;//buffer objects
 } Paddle_t;

@@ -73,20 +73,19 @@ int main(int argc, char * argv[]) {
 	
 		
 
-	glm::mat4 Model, View, Projection;
+	glm::mat4 Model;
 	
-  Projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
-
+  	//BUTTHOLES = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 
 	// Transfer the transformation matrices to the shader program
-  GLint model = glGetUniformLocation(program, "modelMatrix" );
-  glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
+  	GLint model = glGetUniformLocation(program, "modelMatrix" );
+  	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
 
-  GLint view = glGetUniformLocation(program, "viewMatrix" );
-  glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(View));
+  	//GLint view = glGetUniformLocation(program, "viewMatrix" );
+  	//glUniformMatrix4fv(view, 1, GL_FALSE, glm::value_ptr(View));
 
-  GLint projection = glGetUniformLocation(program, "projMatrix" );
-  glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
+  	//GLint projection = glGetUniformLocation(program, "projMatrix" );
+  	//glUniformMatrix4fv(projection, 1, GL_FALSE, glm::value_ptr(Projection));
 	
 	//program=initShaders(shaders);
   
@@ -97,6 +96,8 @@ int main(int argc, char * argv[]) {
 	int x_trans,y_trans;
 	while(true){
 		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
+		//clear the screen before rendering a new frame
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		GLPong_PaddleDraw(&testpaddle, window, x_trans, y_trans);
 	}
 
