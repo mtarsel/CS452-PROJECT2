@@ -14,10 +14,10 @@ typedef struct {
 } Paddle_t;
 
 typedef struct{
-		GLfloat vertexarray[12];
+    GLfloat vertexarray[24];
     GLfloat normalsarray[12];
-    GLfloat colorarray[16];
-    GLubyte elems[12];
+    GLfloat colorarray[32];
+    GLubyte elems[24];
     GLuint vaoID,vboID[2],eboID;//buffer objects
 } Walls_t;
 

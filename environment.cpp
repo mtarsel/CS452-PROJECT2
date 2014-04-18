@@ -70,16 +70,16 @@ void PaddleInit(Paddle_t * paddle){
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={size,size/1.5,0.0f,
-												size,-size/1.5,0.0f,
+				size,-size/1.5,0.0f,
                        -size,-size/1.5,0.0f,
                        -size,size/1.5,0.0f
                        };
       
 	
-	GLfloat colorarray[]={1.0f, 0.0f, 0.0f, 1.0f,
-				    1.0f, 0.0f, 0.0f, 1.0f,
-				    1.0f, 0.0f, 0.0f, 1.0f,
-				    1.0f, 0.0f, 0.0f, 1.0f
+	GLfloat colorarray[]={1.0f, 0.0f, 0.0f, 0.3f,
+				    1.0f, 0.0f, 0.0f, 0.3f,
+				    1.0f, 0.0f, 0.0f, 0.3f,
+				    1.0f, 0.0f, 0.0f, 0.3f
 					};
 	
 	GLfloat normalsarray[] = {normalVector,normalVector,-normalVector,
@@ -133,7 +133,7 @@ void WallsDraw(Walls_t * walls, SDL_Window* screen){
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	
-	glDrawElements(GL_QUADS,4,GL_UNSIGNED_BYTE,NULL);
+	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
 	
 	//SDL_GL_SwapWindow(screen);
@@ -152,28 +152,44 @@ void WallsInit(Walls_t * walls){
  
 	//GLuint program;
 	
-	GLfloat size=.4;
+	GLfloat size=1.0f;
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
-	GLfloat vertexarray[]={2*size,2*size,0.0f,
-												//2*size,2*size,2*size,
-												2*size,-2*size,0.0f,
-												//2*size,-2*size,2*size,
-                       -2*size,-2*size,0.0f,
-                       //-2*size,-2*size,2*size,
-                       -2*size,2*size,0.0f,
-                       //-2*size,2*size,2*size
+	GLfloat vertexarray[]={
+	
+				size,size,0.0f,	// front top right
+				-size,size,0.0f,	// front top left
+                        -size,size,0.7f,	// back top left
+                        size,size,0.7f,	// back top right
+	
+	
+				size, -size, 0.0f,// front bottom right
+				-size, -size, 0.0f,// front bottom left
+				-size, -size, 0.7f,// back bottom left
+				size, -size, 0.7f,// back bottom right
+	
+				
+				
+				
+				
+                        
+                        
+                        
+                        
                        };
       
 	
-	GLfloat colorarray[]={0.0f, 1.0f, 0.0f, 1.0f,
-				    //0.0f, 1.0f, 0.0f, 1.0f,
+	GLfloat colorarray[]={
+				    
 				    0.0f, 1.0f, 0.0f, 1.0f,
-				    //0.0f, 1.0f, 0.0f, 1.0f,
 				    0.0f, 1.0f, 0.0f, 1.0f,
-				    //0.0f, 1.0f, 0.0f, 1.0f,
-				    0.0f, 1.0f, 0.0f, 1.0f,
-				    //0.0f, 1.0f, 0.0f, 1.0f
+				    0.8f, 0.5f, 0.5f, 1.0f,
+				    0.0f, 0.5f, 0.5f, 1.0f,
+				    
+				    0.0f, 0.0f, 1.0f, 1.0f,
+				    0.0f, 0.0f, 1.0f, 1.0f,
+				    0.3f, 0.6f, 1.0f, 1.0f,
+				    0.3f, 0.6f, 1.0f, 1.0f
 					};
 	
 	GLfloat normalsarray[] = {normalVector,normalVector,-normalVector,
@@ -182,21 +198,27 @@ void WallsInit(Walls_t * walls){
                        -normalVector,normalVector,-normalVector
 	};
 						   									
-	GLubyte elems[]={0,1,2,3//,4,5,6,7
+	GLubyte elems[]={
+			0,1,2,3,
+			0,3,7,4,
+			4,5,6,7,
+			1,2,6,5
+						
+			
 		     };
 		
 	//copy the vertex and normal arrays into the paddle object.     
 	int i;
-	for(i=0;i<12;i++){
+	for(i=0;i<24;i++){
 		
 		walls->vertexarray[i]=vertexarray[i];
-		walls->normalsarray[i]=normalsarray[i];
+		//walls->normalsarray[i]=normalsarray[i];
 	}
-	for(i=0; i<4; i++){
-		walls->elems[i]=elems[i];
-	}
-	for(i=0; i<16; i++){
+	for(i=0; i<32; i++){
 		walls->colorarray[i]=colorarray[i];
+	}
+	for(i=0; i<24; i++){
+		walls->elems[i]=elems[i];
 	}
 }
 
