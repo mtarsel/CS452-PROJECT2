@@ -84,8 +84,7 @@ int main(int argc, char * argv[]) {
 	Walls_t walls;
 	Paddle_t testpaddle;
 	
-	// ---- This messes up the layering for some reason so it's commmented out for now
-	//EnvironmentInit();
+	EnvironmentInit();
 	WallsInit(&walls);
 	PaddleInit(&testpaddle);
 	int x_trans,y_trans;

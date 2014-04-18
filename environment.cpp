@@ -76,10 +76,10 @@ void PaddleInit(Paddle_t * paddle){
                        };
       
 	
-	GLfloat colorarray[]={1.0f, 0.0f, 0.0f, 0.3f,
-				    1.0f, 0.0f, 0.0f, 0.3f,
-				    1.0f, 0.0f, 0.0f, 0.3f,
-				    1.0f, 0.0f, 0.0f, 0.3f
+	GLfloat colorarray[]={1.0f, 0.0f, 0.0f, 0.5f,
+				    1.0f, 0.0f, 0.0f, 0.5f,
+				    1.0f, 0.0f, 0.0f, 0.5f,
+				    1.0f, 0.0f, 0.0f, 0.5f
 					};
 	
 	GLfloat normalsarray[] = {normalVector,normalVector,-normalVector,
@@ -225,6 +225,9 @@ void WallsInit(Walls_t * walls){
 void EnvironmentInit(){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
+	//Next two lines are to create a transluscent paddle
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glEnable(GL_LIGHT1);
