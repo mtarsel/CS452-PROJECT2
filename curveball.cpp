@@ -84,10 +84,12 @@ int main(int argc, char * argv[]) {
   glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
 	
 	Walls_t walls;
+	Ball_t ball;
 	Paddle_t testpaddle;
 	
 	EnvironmentInit();
 	WallsInit(&walls);
+	BallInit(&ball);
 	PaddleInit(&testpaddle);
 	int x_trans,y_trans;
 	while(true){
@@ -96,8 +98,9 @@ int main(int argc, char * argv[]) {
 		//clear the screen before rendering a new frame
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		
-		WallsDraw(&walls, window);
-		PaddleDraw(&testpaddle, window, x_trans, y_trans);
+		WallsDraw(&walls);
+		BallDraw(&ball, x_trans, y_trans);
+		PaddleDraw(&testpaddle, x_trans, y_trans);
 		SDL_GL_SwapWindow(window);
 	}
 

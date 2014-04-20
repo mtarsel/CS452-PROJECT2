@@ -59,7 +59,7 @@ GLuint initShaders(ShaderInfo* shaders){
   
   glm::mat4 mainProjMatrix;
   mainProjMatrix = glm::perspective(57.0,1.0,.1,500.0);//Matrix that handle the orthographic or perspective viewing
-  tempLoc = glGetUniformLocation(program, "Matrix");
+  tempLoc = glGetUniformLocation(program, "projMatrix");
   glUniformMatrix4fv(tempLoc, 1, GL_FALSE, &mainProjMatrix[0][0]);
   
   return program;

@@ -21,9 +21,9 @@ typedef struct{
     GLuint vaoID,vboID[2],eboID;//buffer objects
 } Walls_t;
 
-void WallsDraw(Walls_t * walls, SDL_Window* screen);
+void WallsDraw(Walls_t * walls);
 void WallsInit(Walls_t * walls);
-void PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans);
+void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans);
 void PaddleInit(Paddle_t * paddle);
 void EnvironmentInit();
 

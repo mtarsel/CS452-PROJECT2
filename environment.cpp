@@ -1,7 +1,7 @@
 #include "environment.h"
 //#include "shaders.h"
 
-void PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat y_trans){
+void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans){
 
 	//glGenVertexArrays(1,&paddle->vaoID);
 	//glGenBuffers(2, paddle->vboID);
@@ -11,9 +11,9 @@ void PaddleDraw(Paddle_t * paddle, SDL_Window* screen, GLfloat x_trans, GLfloat 
 	GLfloat trans_vert_array[12];
 	int i;
 	for(i=0; i<12; i++){
-		if((i%3)==0) trans_vert_array[i]=paddle->vertexarray[i]+(x_trans/350);
-		else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
-		//else if((i%3)==2) trans_vert_array[i]=paddle->vertexarray[i]+(y_trans/350);
+		if((i%3)==0) trans_vert_array[i]=paddle->vertexarray[i]+(x_trans/30);
+		else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/30);  //for normal paddle translation
+		//else if((i%3)==2) trans_vert_array[i]=paddle->vertexarray[i]+(y_trans/350);		//for depth paddle translation (for testing)
 		else trans_vert_array[i]=paddle->vertexarray[i];
 		
 	}
@@ -66,7 +66,7 @@ void PaddleInit(Paddle_t * paddle){
 	//glViewport(0, 0, 640, 640);
 	//GLuint program;
 	
-	GLfloat size=.4;
+	GLfloat size=4.5;
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={size,size/1.5,0.0f,
@@ -93,20 +93,20 @@ void PaddleInit(Paddle_t * paddle){
 		
 	//copy the vertex and normal arrays into the paddle object.     
 	int i;
-	for(i=0;i<12;i++){
+	for(i=0;i<sizeof(vertexarray)/4;i++){
 		
 		paddle->vertexarray[i]=vertexarray[i];
 		paddle->normalsarray[i]=normalsarray[i];
 	}
-	for(i=0; i<4; i++){
-		paddle->elems[i]=elems[i];
-	}
-	for(i=0; i<16; i++){
+	for(i=0; i<sizeof(colorarray)/4; i++){
 		paddle->colorarray[i]=colorarray[i];
+	}
+	for(i=0; i<sizeof(elems); i++){
+		paddle->elems[i]=elems[i];
 	}
 }
 
-void WallsDraw(Walls_t * walls, SDL_Window* screen){
+void WallsDraw(Walls_t * walls){
 
 	//glGenVertexArrays(1,&paddle->vaoID);
 	//glGenBuffers(2, paddle->vboID);
@@ -152,30 +152,22 @@ void WallsInit(Walls_t * walls){
  
 	//GLuint program;
 	
-	GLfloat size=1.0f;
+	GLfloat size=11.5f;
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={
 	
 				size,size,0.0f,	// front top right
 				-size,size,0.0f,	// front top left
-                        -size,size,0.7f,	// back top left
-                        size,size,0.7f,	// back top right
+                        -size,size,-320.0f,	// back top left
+                        size,size,-320.0f,	// back top right
 	
 	
 				size, -size, 0.0f,// front bottom right
 				-size, -size, 0.0f,// front bottom left
-				-size, -size, 0.7f,// back bottom left
-				size, -size, 0.7f,// back bottom right
-	
-				
-				
-				
-				
-                        
-                        
-                        
-                        
+				-size, -size, -320.0f,// back bottom left
+				size, -size, -320.0f// back bottom right
+
                        };
       
 	
@@ -203,21 +195,19 @@ void WallsInit(Walls_t * walls){
 			0,3,7,4,
 			4,5,6,7,
 			1,2,6,5
-						
-			
 		     };
 		
-	//copy the vertex and normal arrays into the paddle object.     
+	//copy the vertex and normal arrays into the paddle object. (the sizes are divided by 4 due to floats)
 	int i;
-	for(i=0;i<24;i++){
+	for(i=0;i<sizeof(vertexarray)/4;i++){
 		
 		walls->vertexarray[i]=vertexarray[i];
 		//walls->normalsarray[i]=normalsarray[i];
 	}
-	for(i=0; i<32; i++){
+	for(i=0; i<sizeof(colorarray)/4; i++){
 		walls->colorarray[i]=colorarray[i];
 	}
-	for(i=0; i<24; i++){
+	for(i=0; i<sizeof(elems); i++){
 		walls->elems[i]=elems[i];
 	}
 }
