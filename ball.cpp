@@ -5,7 +5,7 @@
 void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans) {
 	
 	//THIS IS THE TRANSLATION
-	GLfloat trans_vert_array[18];
+	GLfloat trans_vert_array[24];
 	int i;
 	for(i=0; i<sizeof(trans_vert_array)/4; i++){
 		if((i%3)==0) trans_vert_array[i]=ball->vertexarray[i]+(x_trans/30);
@@ -42,7 +42,7 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans) {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	
-	glDrawElements(GL_TRIANGLES,24,GL_UNSIGNED_BYTE,NULL);
+	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
 }
 	
@@ -58,26 +58,28 @@ void BallInit(Ball_t * ball) {
 	//glViewport(0, 0, 640, 640);
 	//GLuint program;
 	
-	GLfloat size=2.0;
+	GLfloat size=1.5;
 	//GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={
-				size,0,size,	//front middle right
-				-size,0,size,	//front middle left
-				size,0,-size,	//back middle right
-                        -size,0,-size,	//back middle left
-                       
-                        0,size,0,		//middle top point
-				0,-size,0		//middle bottom point
-				
+				size,size,size,	//front top right
+				-size,size,size,	//front top left
+				size,-size,size,	//front bottom right
+				-size,-size,size,	//front bottom left
+				size,size,-size,	//back top right
+				-size,size,-size,	//back top left
+				size,-size,-size,	//back bottom right
+				-size,-size,-size	//back bottom left
                        };
       
 	
-	GLfloat colorarray[]={1.0f, 0.0f, 0.0f, 1.0f,
-				    0.0f, 1.0f, 0.0f, 1.0f,
-				    0.0f, 0.0f, 1.0f, 1.0f,
-				    1.0f, 1.0f, 0.0f, 1.0f,
-				    1.0f, 0.0f, 1.0f, 1.0f,
+	GLfloat colorarray[]={1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
+				    1.0f, 1.0f, 1.0f, 1.0f,
 				    1.0f, 1.0f, 1.0f, 1.0f
 					};
 	
@@ -87,15 +89,13 @@ void BallInit(Ball_t * ball) {
                        -normalVector,normalVector,-normalVector
 	};*/
 						   									
-	GLubyte elems[]={0,1,4,
-			     0,2,4,
-			     2,3,4,
-			     1,3,4,
-			     
-			     0,1,5,
-			     0,2,5,
-			     2,3,5,
-			     1,3,5,
+	GLubyte elems[]={
+				0,1,3,2,
+				5,4,6,7,
+				1,0,4,5,
+				0,2,6,4,
+				2,3,7,6,
+				1,3,7,5
 		     };
 		
 	//copy the vertex and normal arrays into the paddle object.     
