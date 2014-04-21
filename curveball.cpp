@@ -70,7 +70,7 @@ int main(int argc, char * argv[]) {
 
 	glm::mat4 Model;
 	
-  //Load our shaders into the "program" variable
+ 	//Load our shaders into the "program" variable
 	GLuint program;
 	ShaderInfo shaders[]={
 		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
@@ -80,8 +80,28 @@ int main(int argc, char * argv[]) {
 	program = initShaders(shaders);	
 		
 	// Transfer the transformation matrices to the shader program
-  GLint model = glGetUniformLocation(program, "modelMatrix" );
-  glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
+  	GLint model = glGetUniformLocation(program, "modelMatrix" );
+  	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
+  
+  	//Lighting stuff  --- CAN MOVE
+  	GLint tempLoc;
+	GLfloat ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
+	tempLoc = glGetUniformLocation(program,"Ambient");
+	glUniform4fv(tempLoc,1,ambient);
+	
+	GLfloat light1_dir[] = {500.0f, 500.0f, 500.0f};
+	GLfloat light1_color[] = {0.1f, 0.7f, 0.2f};
+	
+	tempLoc = glGetUniformLocation(program,"LightColor1");
+	glUniform3fv(tempLoc,1,light1_color);
+
+	tempLoc = glGetUniformLocation(program,"LightDirection1");
+	glUniform3fv(tempLoc,1,light1_dir);
+  
+	tempLoc = glGetUniformLocation(program,"HalfVector1");
+	glUniform3fv(tempLoc,1,light1_dir);
+	
+	
 	
 	Walls_t walls;
 	Ball_t ball;

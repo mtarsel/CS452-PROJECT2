@@ -10,7 +10,7 @@ typedef struct {
     GLfloat normalsarray[12];
     GLfloat colorarray[16];
     GLubyte elems[12];
-    GLuint vaoID,vboID[2],eboID;//buffer objects
+    GLuint vaoID,vboID[3],eboID;//buffer objects
 } Paddle_t;
 
 typedef struct{
@@ -18,7 +18,7 @@ typedef struct{
     GLfloat normalsarray[12];
     GLfloat colorarray[32];
     GLubyte elems[24];
-    GLuint vaoID,vboID[2],eboID;//buffer objects
+    GLuint vaoID,vboID[3],eboID;//buffer objects
 } Walls_t;
 
 void WallsDraw(Walls_t * walls);

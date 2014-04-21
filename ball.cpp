@@ -33,6 +33,11 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans) {
 	glBufferData(GL_ARRAY_BUFFER,sizeof(ball->colorarray),ball->colorarray,GL_STATIC_DRAW);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	
+	glBindBuffer(GL_ARRAY_BUFFER,ball->vboID[2]);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(ball->normalsarray),ball->normalsarray,GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER,sizeof(paddle->vertexarray),paddle->vertexarray,GL_STATIC_DRAW);
+	glVertexAttribPointer(2,3,GL_FLOAT,GL_FALSE,0,(void*)0);
+	
 	//glGenBuffers(1,&paddle->eboID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ball->eboID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(ball->elems),ball->elems,GL_STATIC_DRAW);
@@ -41,6 +46,7 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans) {
   
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	
 	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
@@ -51,7 +57,7 @@ void BallInit(Ball_t * ball) {
 	
 	//generate the buffers in the init to save resources
 	glGenVertexArrays(1,&ball->vaoID);
-	glGenBuffers(2, ball->vboID);
+	glGenBuffers(3, ball->vboID);
 	glGenBuffers(1,&ball->eboID);	
 	
  
@@ -59,7 +65,7 @@ void BallInit(Ball_t * ball) {
 	//GLuint program;
 	
 	GLfloat size=1.5;
-	//GLfloat normalVector = 1.0f / sqrt(3.0f);
+	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={
 				size,size,size,	//front top right
@@ -83,11 +89,16 @@ void BallInit(Ball_t * ball) {
 				    1.0f, 1.0f, 1.0f, 1.0f
 					};
 	
-	/*GLfloat normalsarray[] = {normalVector,normalVector,-normalVector,
-                       normalVector,-normalVector,-normalVector,
-                       -normalVector,-normalVector,-normalVector,
-                       -normalVector,normalVector,-normalVector
-	};*/
+	GLfloat normalsarray[] = {
+				normalVector,normalVector,normalVector,	//front top right
+				-normalVector,normalVector,normalVector,	//front top left
+				normalVector,-normalVector,normalVector,	//front bottom right
+				-normalVector,-normalVector,normalVector,	//front bottom left
+				normalVector,normalVector,-normalVector,	//back top right
+				-normalVector,normalVector,-normalVector,	//back top left
+				normalVector,-normalVector,-normalVector,	//back bottom right
+				-normalVector,-normalVector,-normalVector	//back bottom left
+	};
 						   									
 	GLubyte elems[]={
 				0,1,3,2,
@@ -103,7 +114,7 @@ void BallInit(Ball_t * ball) {
 	for(i=0;i<sizeof(vertexarray)/4;i++){
 		
 		ball->vertexarray[i]=vertexarray[i];
-		//ball->normalsarray[i]=normalsarray[i];
+		ball->normalsarray[i]=normalsarray[i];
 	}
 	for(i=0; i<sizeof(colorarray)/4; i++){
 		ball->colorarray[i]=colorarray[i];
