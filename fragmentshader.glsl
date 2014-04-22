@@ -30,11 +30,12 @@ void main(){
   else
       specular1 = pow(specular1, 7);
 
-  vec3 scatteredLight = Ambient.rgb + LightColor1 * diffuse1; //+ LightColor2 * diffuse2;
+  vec3 scatteredLight = Ambient.rgb + LightColor1 * diffuse1;
   vec3 reflectedLight = LightColor1 * specular1 * 20;
 
   vec3 rgb = min( (pass_color.rgb * amb) * scatteredLight + reflectedLight, vec3(1.0));
+  //vec3 rgb = min( (tex.rgb * amb) * scatteredLight + reflectedLight, vec3(1.0));
 
   out_color = (vec4(rgb, pass_color.a)+texture2D(texture, f_texcoord))/2;
-  //out_color = texture2D(texture, f_texcoord);
+  //out_color = vec4(rgb, pass_color.a);
 }

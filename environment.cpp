@@ -8,9 +8,9 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	GLint uniform_mytexture;
 	GLint attribute_texcoord;
 	
-	//Texcoordinates
+	//Texcoordinates  NOT WORKING
 	GLfloat cube_texcoords[2*4*6] = {
-    	/*	0.0f, 0.0f,
+    		0.0f, 0.0f,
     		1.0f, 0.0f,
     		1.0f, 1.0f,
     		0.0f, 1.0f,
@@ -39,8 +39,9 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
     		1.0f, 0.0f,
     		1.0f, 1.0f,
     		0.0f, 1.0f
-*/
+
 	};
+	
 
 	
   	//glEnable(GL_DEPTH_TEST);
@@ -98,7 +99,7 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
   
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	//glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(2);
 	
 	glDrawElements(GL_QUADS,4,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
@@ -124,7 +125,7 @@ void PaddleInit(Paddle_t * paddle){
 	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
   	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
  	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB,img_width,img_height,0,GL_RGB,GL_UNSIGNED_BYTE,img);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,img_width,img_height,0,GL_RGBA,GL_UNSIGNED_BYTE,img);
  
 	//glViewport(0, 0, 640, 640);
 	//GLuint program;
