@@ -2,7 +2,61 @@
 
 //static GLuint ball_texture;
 
-void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans) {
+void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint program) {
+	
+	
+	GLint uniform_mytexture;
+	GLint attribute_texcoord;
+	
+	//Texcoordinates
+	GLfloat cube_texcoords[2*4*6] = {
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f
+	};
+
+	
+  	//glEnable(GL_DEPTH_TEST);
+  
+  	//glViewport(0, 0, 600, 600);
+  
+  	glBindBuffer(GL_ARRAY_BUFFER, ball->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, ball->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
 	
 	//THIS IS THE TRANSLATION
 	GLfloat trans_vert_array[24];
@@ -60,6 +114,17 @@ void BallInit(Ball_t * ball) {
 	glGenBuffers(3, ball->vboID);
 	glGenBuffers(1,&ball->eboID);	
 	
+	glGenTextures(1, &ball->texture_id);
+ 	glGenBuffers(1, &ball->vbo_cube_texcoords);
+ 	
+ 	int img_width, img_height;
+	unsigned char* img = SOIL_load_image("baby.jpeg", &img_width, &img_height, NULL, 0);
+	
+	glBindTexture(GL_TEXTURE_2D, ball->texture_id);
+  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ 	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB,img_width,img_height,0,GL_RGB,GL_UNSIGNED_BYTE,img);
+ 
  
 	//glViewport(0, 0, 640, 640);
 	//GLuint program;

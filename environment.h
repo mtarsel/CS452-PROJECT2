@@ -11,6 +11,9 @@ typedef struct {
     GLfloat colorarray[16];
     GLubyte elems[12];
     GLuint vaoID,vboID[3],eboID;//buffer objects
+    //texture stuff
+    GLuint vbo_cube_texcoords;
+    GLuint texture_id;
 } Paddle_t;
 
 typedef struct{
@@ -19,11 +22,14 @@ typedef struct{
     GLfloat colorarray[32];
     GLubyte elems[24];
     GLuint vaoID,vboID[2],eboID;//buffer objects
+    //texture stuff
+    GLuint vbo_cube_texcoords;
+    GLuint texture_id;
 } Walls_t;
 
-void WallsDraw(Walls_t * walls);
+void WallsDraw(Walls_t * walls, GLuint program);
 void WallsInit(Walls_t * walls);
-void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans);
+void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint program);
 void PaddleInit(Paddle_t * paddle);
 void EnvironmentInit();
 

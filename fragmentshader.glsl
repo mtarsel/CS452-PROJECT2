@@ -10,8 +10,8 @@ uniform vec3 HalfVector1;
 in vec4 pass_color;
 in vec3 pass_normal;
 
-//varying vec2 f_texcoord;
-in vec2 f_texcoord;
+varying vec2 f_texcoord;
+//in vec2 f_texcoord;
 uniform sampler2D texture;
 
 out vec4 out_color;
@@ -33,9 +33,8 @@ void main(){
   vec3 scatteredLight = Ambient.rgb + LightColor1 * diffuse1; //+ LightColor2 * diffuse2;
   vec3 reflectedLight = LightColor1 * specular1 * 20;
 
-
   vec3 rgb = min( (pass_color.rgb * amb) * scatteredLight + reflectedLight, vec3(1.0));
 
-  out_color = vec4(rgb, pass_color.a)+texture2D(texture, f_texcoord);
+  out_color = (vec4(rgb, pass_color.a)+texture2D(texture, f_texcoord))/2;
   //out_color = texture2D(texture, f_texcoord);
 }

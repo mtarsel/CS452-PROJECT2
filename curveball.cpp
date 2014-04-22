@@ -75,36 +75,8 @@ int main(int argc, char * argv[]) {
 		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
 		{ GL_NONE , NULL} 
 	};
-	program = initShaders(shaders);
+	program = initShaders(shaders);	
 	
-		
-	//TEXTURE JUNK
-	GLuint texture_id;
-	GLint uniform_mytexture;
-	GLint attribute_texcoord;
-	
-	
-	//Generate some weird texture data	
-	GLubyte imageData[]={
-		0x0,0x0,0xFF //R, G, B
-	};
-	//GLubyte * imageData = (GLubyte*)malloc(200);
-
-  	//glEnable(GL_DEPTH_TEST);
-  
-  	//glViewport(0, 0, 600, 600);
-  
-  	glGenTextures(1, &texture_id);
-  	glBindTexture(GL_TEXTURE_2D, texture_id);
-  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,1,1,0,GL_RGBA,GL_UNSIGNED_BYTE,imageData);
-	
-	attribute_texcoord = glGetAttribLocation(program, "texcoord");
-  	glEnableVertexAttribArray(attribute_texcoord);
-  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	
-		
-		
 	// Transfer the transformation matrices to the shader program
   	GLint model = glGetUniformLocation(program, "modelMatrix" );
   	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(Model));
@@ -144,9 +116,9 @@ int main(int argc, char * argv[]) {
 		//clear the screen before rendering a new frame
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		
-		WallsDraw(&walls);
-		BallDraw(&ball, x_trans, y_trans);
-		PaddleDraw(&testpaddle, x_trans, y_trans);
+		WallsDraw(&walls, program);
+		BallDraw(&ball, x_trans, y_trans, program);
+		PaddleDraw(&testpaddle, x_trans, y_trans, program);
 		SDL_GL_SwapWindow(window);
 	}
 

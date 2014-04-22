@@ -1,11 +1,64 @@
 #include "environment.h"
 //#include "shaders.h"
 
-void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans){
+void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint program){
 
-	//glGenVertexArrays(1,&paddle->vaoID);
-	//glGenBuffers(2, paddle->vboID);
-	//glGenBuffers(1,&paddle->eboID);
+	///TEXTURE JUNK
+	
+	GLint uniform_mytexture;
+	GLint attribute_texcoord;
+	
+	//Texcoordinates
+	GLfloat cube_texcoords[2*4*6] = {
+    	/*	0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f
+*/
+	};
+
+	
+  	//glEnable(GL_DEPTH_TEST);
+  
+  	//glViewport(0, 0, 600, 600);
+  
+  	glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
+
 
 	//THIS IS THE TRANSLATION
 	GLfloat trans_vert_array[12];
@@ -56,18 +109,22 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans){
 /* --------------------------------- IF YOU CHANGE THESE SIZES, change the declarations in the header file. Global declarations are probably a good idea -------------------------- */
 void PaddleInit(Paddle_t * paddle){
 
-	//glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
-	//glEnable(GL_NORMALIZE);
 	
 	//generate the buffers in the init to save resources
 	glGenVertexArrays(1,&paddle->vaoID);
 	glGenBuffers(3, paddle->vboID);
-	glGenBuffers(1,&paddle->eboID);	
+	glGenBuffers(1,&paddle->eboID);
+		
+	glGenTextures(1, &paddle->texture_id);
+ 	glGenBuffers(1, &paddle->vbo_cube_texcoords);
+ 	
+ 	int img_width, img_height;
+	unsigned char* img = SOIL_load_image("redbrick.png", &img_width, &img_height, NULL, 0);
 	
+	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
+  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ 	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB,img_width,img_height,0,GL_RGB,GL_UNSIGNED_BYTE,img);
  
 	//glViewport(0, 0, 640, 640);
 	//GLuint program;
@@ -118,7 +175,83 @@ void PaddleInit(Paddle_t * paddle){
 	}
 }
 
-void WallsDraw(Walls_t * walls){
+void WallsDraw(Walls_t * walls, GLuint program){
+
+
+	//TEXTURE JUNK
+	
+	GLint uniform_mytexture;
+	GLint attribute_texcoord;
+	
+	//Texcoordinates
+	GLfloat cube_texcoords[2*4*6] = {
+    	/*	0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		1.0f, 1.0f,
+    		0.0f, 1.0f
+*/
+	};
+
+	
+  	//glEnable(GL_DEPTH_TEST);
+  
+  	//glViewport(0, 0, 600, 600);
+  
+  	
+  	
+
+	//attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	//glEnableVertexAttribArray(attribute_texcoord);
+  	//glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	
+  	glBindBuffer(GL_ARRAY_BUFFER, walls->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
+
+
+
+
+//----------------------------------------------------------
+
+
+
+
+
+
 
 	//glGenVertexArrays(1,&paddle->vaoID);
 	//glGenBuffers(2, paddle->vboID);
@@ -168,6 +301,15 @@ void WallsInit(Walls_t * walls){
 	glGenBuffers(3, walls->vboID);
 	glGenBuffers(1,&walls->eboID);	
 	
+	glGenTextures(1, &walls->texture_id);
+ 	glGenBuffers(1, &walls->vbo_cube_texcoords);
+ 	
+ 	int img_width, img_height;
+	unsigned char* img = SOIL_load_image("brick.jpg", &img_width, &img_height, NULL, 0);
+	
+	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
+  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGB,img_width,img_height,0,GL_RGB,GL_UNSIGNED_BYTE,img);
  
 	//GLuint program;
 	

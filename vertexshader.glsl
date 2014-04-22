@@ -4,7 +4,7 @@ uniform mat4 projMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 
-uniform vec2 texcoord;
+attribute vec2 texcoord;
 out vec2 f_texcoord;
 
 
@@ -16,7 +16,7 @@ out vec4 pass_color;
 out vec3 pass_normal;
 
 void main(){
-
+ 
   pass_normal = in_normal;
   pass_color=in_color;
   //pass_color = color;
