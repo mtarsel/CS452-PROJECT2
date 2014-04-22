@@ -141,7 +141,7 @@ void WallsDraw(Walls_t * walls){
 	glBufferData(GL_ARRAY_BUFFER,sizeof(walls->normalsarray),walls->normalsarray,GL_STATIC_DRAW);
 	glVertexAttribPointer(2,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
-	
+		
 	//glGenBuffers(1,&paddle->eboID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,walls->eboID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(walls->elems),walls->elems,GL_STATIC_DRAW);

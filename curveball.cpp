@@ -64,8 +64,6 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
   
-	
-	
 		
 
 	glm::mat4 Model;
@@ -77,8 +75,8 @@ int main(int argc, char * argv[]) {
 		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
 		{ GL_NONE , NULL} 
 	};
-	program = initShaders(shaders);	
-		
+	program = initShaders(shaders);
+	
 		
 	//TEXTURE JUNK
 	GLuint texture_id;
