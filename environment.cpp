@@ -137,7 +137,8 @@ void WallsDraw(Walls_t * walls){
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	
 	glBindBuffer(GL_ARRAY_BUFFER,walls->vboID[2]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(walls->vertexarray),walls->vertexarray,GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER,sizeof(walls->vertexarray),walls->vertexarray,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(walls->normalsarray),walls->normalsarray,GL_STATIC_DRAW);
 	glVertexAttribPointer(2,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
 	
@@ -149,7 +150,7 @@ void WallsDraw(Walls_t * walls){
   
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	//glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(2);
 	
 	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
