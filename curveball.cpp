@@ -85,10 +85,10 @@ int main(int argc, char * argv[]) {
 	
 	
 	//Generate some weird texture data	
-	/*GLubyte imageData[]={
-		0xff, 0xff, 0xff	
-	};*/
-	GLubyte * imageData = (GLubyte*)malloc(200);
+	GLubyte imageData[]={
+		0x0,0x0,0xFF //R, G, B
+	};
+	//GLubyte * imageData = (GLubyte*)malloc(200);
 
   	//glEnable(GL_DEPTH_TEST);
   
@@ -97,7 +97,7 @@ int main(int argc, char * argv[]) {
   	glGenTextures(1, &texture_id);
   	glBindTexture(GL_TEXTURE_2D, texture_id);
   	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,10,10,0,GL_RGBA,GL_UNSIGNED_BYTE,imageData);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,1,1,0,GL_RGBA,GL_UNSIGNED_BYTE,imageData);
 	
 	attribute_texcoord = glGetAttribLocation(program, "texcoord");
   	glEnableVertexAttribArray(attribute_texcoord);
