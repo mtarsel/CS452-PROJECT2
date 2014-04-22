@@ -64,8 +64,6 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
   
-	
-	
 		
 
 	glm::mat4 Model;
@@ -77,7 +75,33 @@ int main(int argc, char * argv[]) {
 		{ GL_FRAGMENT_SHADER , "fragmentshader.glsl"}, 
 		{ GL_NONE , NULL} 
 	};
-	program = initShaders(shaders);	
+	program = initShaders(shaders);
+	
+	
+	//TEXTURE JUNK
+	GLuint texture_id;
+	GLint uniform_mytexture;
+	GLint attribute_texcoord;
+	
+	
+	//Generate some weird texture data	
+	GLubyte imageData[]={
+		0x00,0x00,0x00,	0xff,0xff,0xff,
+		0xff,0xff,0xff,	0x00,0x00,0x00
+	};
+
+  	//glEnable(GL_DEPTH_TEST);
+  
+  	//glViewport(0, 0, 600, 600);
+  
+  	glGenTextures(1, &texture_id);
+  	glBindTexture(GL_TEXTURE_2D, texture_id);
+  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,3,3,0,GL_RGBA,GL_UNSIGNED_BYTE,imageData);
+	
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		
 	// Transfer the transformation matrices to the shader program
   	GLint model = glGetUniformLocation(program, "modelMatrix" );

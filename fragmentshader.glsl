@@ -11,6 +11,9 @@ uniform vec3 HalfVector1;
 //uniform vec3 LightDirection2;
 //uniform vec3 HalfVector2;
 
+varying vec2 f_texcoord;
+uniform sampler2D texture;
+
 in vec4 pass_color;
 in vec3 pass_normal;
 
@@ -41,5 +44,6 @@ void main(){
 
   vec3 rgb = min( (pass_color.rgb * amb) * scatteredLight + reflectedLight, vec3(1.0));
   
-  out_color = vec4(rgb, pass_color.a);
+  out_color = vec4(rgb, pass_color.a)+texture2D(texture, f_texcoord);
+  //out_color = texture2D(texture, f_texcoord);
 }
