@@ -42,8 +42,10 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
     		0.0f, 1.0f
 
 	};*/
-	GLfloat cube_texcoords[4]={
+	GLfloat cube_texcoords[8]={
+		0.0f, 0.0f,
 		0.0f, 1.0f,
+		1.0f, 1.0f,
 		1.0f, 0.0f
 	};
 
@@ -122,7 +124,7 @@ void PaddleInit(Paddle_t * paddle){
  	glGenBuffers(1, &paddle->vbo_cube_texcoords);
  	
  	int img_width, img_height;
-	unsigned char* img = SOIL_load_image("redbrick.png", &img_width, &img_height, NULL, 0);
+	unsigned char* img = SOIL_load_image("crosshair.png", &img_width, &img_height, NULL, 0);
 	
 	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
   	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -251,7 +253,8 @@ void WallsDraw(Walls_t * walls, GLuint program){
 	//glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
+	//DISABLE WALL COLOR TO MAKE IT A BIT LESS WASHED OUT
+	//glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	
 	//TEXTURE BINDING. IT HAS TO BE HERE! UNDERNEATH THE BIND ARRAYS

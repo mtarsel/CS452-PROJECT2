@@ -10,10 +10,39 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	
 	//Texcoordinates
 	GLfloat cube_texcoords[2*4*6] = {
+    		
+    		
     		0.0f, 0.0f,
     		1.0f, 0.0f,
-    		1.0f, 1.0f,
     		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		0.0f, 0.0f,
+    		1.0f, 0.0f,
+    		0.0f, 1.0f,
+    		1.0f, 1.0f,
+    		
+    		
 	};
 
 	
