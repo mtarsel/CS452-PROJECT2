@@ -121,13 +121,13 @@ int main(int argc, char * argv[]) {
 	while(true){
 		mouse_kb_input(window, &x_trans, &y_trans);//mouse/keyboard controls
 		
-		//printf("Bx: %f, By: %f", GetBallCoord(&ball, 'r')-.75, GetBallCoord(&ball, 't')-.75);
-		//printf("   ------     Px: %f, Py: %f\n", x_trans/30.0, 1-(y_trans/30.0));
+		printf("Bx: %f, By: %f", GetBallCoord(&ball, 'r')-.75, GetBallCoord(&ball, 't')-.75);
+		printf("   ------     Px: %f, Py: %f\n", x_trans/30.0, 1-(y_trans/30.0));
 		
 		if((GetBallCoord(&ball, 'r') >= ((x_trans/30)-3.5)) && 
 		   (GetBallCoord(&ball, 'l') <= ((x_trans/30)+3.5)) &&
-		   (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-2.0)) &&
-		   (GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+2.0)) &&
+		   (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-3.8)) &&
+		   (GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+3.8)) &&
 		   (GetBallCoord(&ball, 'f') >= -1.0f) &&	//The paddle collision calculations
 		   (GetBallCoord(&ball, 'f') <= 1.0f)){	//
 		   	ball.dir_z=-1;
@@ -141,14 +141,14 @@ int main(int argc, char * argv[]) {
 		   	   		printf("Hit left side.\n"); 
 		   	   		ball.dir_x-=(ball.speed/4);
 		   	   		//This if is for top
-		   	   		if((GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-2.0)) && (GetBallCoord(&ball, 't') <= ((1-(y_trans/30.0))))) {
-		   	   			printf("Hit top side.\n"); 
-		   	   			ball.dir_y+=(ball.speed/4);
-		   	   		}
-		   	   		//This if is for bottom
-		   	   		if((GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+2.0)) && (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))))) {
+		   	   		if((GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-3.8)) && (GetBallCoord(&ball, 't') <= ((1-(y_trans/30.0))))) {
 		   	   			printf("Hit bottom side.\n"); 
 		   	   			ball.dir_y-=(ball.speed/4);
+		   	   		}
+		   	   		//This if is for bottom
+		   	   		if((GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+3.8)) && (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))))) {
+		   	   			printf("Hit top side.\n"); 
+		   	   			ball.dir_y+=(ball.speed/4);
 		   	   		}
 		   	   	}
 		   	   
@@ -156,14 +156,14 @@ int main(int argc, char * argv[]) {
 		   	   		printf("Hit right side.\n"); 
 		   	   		ball.dir_x+=(ball.speed/4);
 		   	   		//This if is for top
-		   	   		if((GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-2.0)) && (GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))))) {
-		   	   			printf("Hit top side.\n"); 
-		   	   			ball.dir_y+=(ball.speed/4);
-		   	   		}
-		   	   		//This if is for bottom
-		   	   		if((GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+2.0)) && (GetBallCoord(&ball, 'b') >= ((1-(y_trans/30.0))))) {
+		   	   		if((GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-3.8)) && (GetBallCoord(&ball, 't') <= ((1-(y_trans/30.0))))) {
 		   	   			printf("Hit bottom side.\n"); 
 		   	   			ball.dir_y-=(ball.speed/4);
+		   	   		}
+		   	   		//This if is for bottom
+		   	   		if((GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+3.8)) && (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))))) {
+		   	   			printf("Hit top side.\n"); 
+		   	   			ball.dir_y+=(ball.speed/4);
 		   	   		}
 		   	   }
 		   	
