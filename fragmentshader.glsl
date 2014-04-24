@@ -22,8 +22,6 @@ void main(){
 
   float diffuse1 = max(0.0, dot(pass_normal, normalize(LightDirection1)));
   float specular1 = max(0.0, dot(pass_normal, normalize(HalfVector1)));
-  //float diffuse2 = max(0.0, dot(pass_normal, normalize(LightDirection2)));
-  //float specular2 = max(0.0, dot(pass_normal, normalize(HalfVector2)));
 
   if (diffuse1 == 0.0)
       specular1 = 0.0;

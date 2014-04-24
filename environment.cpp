@@ -47,22 +47,6 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 		1.0f, 0.0f
 	};
 
-	
-  	//glEnable(GL_DEPTH_TEST);
-  
-  	//glViewport(0, 0, 600, 600);
-  
-  	/*glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
-  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
-	
-	attribute_texcoord = glGetAttribLocation(program, "texcoord");
-  	glEnableVertexAttribArray(attribute_texcoord);
- 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glActiveTexture(GL_TEXTURE0);
-  	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
-  	uniform_mytexture = glGetUniformLocation(program, "texture");
-  	glUniform1i(uniform_mytexture, 0);*/
 
 
 	//THIS IS THE TRANSLATION
@@ -105,6 +89,7 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	
+	//TEXTURE BINDING. IT HAS TO BE HERE! UNDERNEATH THE BIND ARRAYS
 	glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
   	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
 	
@@ -116,7 +101,7 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
   	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
   	uniform_mytexture = glGetUniformLocation(program, "texture");
   	glUniform1i(uniform_mytexture, 0);
-	
+	//END TEXTURING
 	
 	glDrawElements(GL_QUADS,4,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
@@ -239,26 +224,6 @@ void WallsDraw(Walls_t * walls, GLuint program){
   	//glEnable(GL_DEPTH_TEST);
   
   	//glViewport(0, 0, 600, 600);
-  
-  	
-  	
-
-	/*attribute_texcoord = glGetAttribLocation(program, "texcoord");
-  	glEnableVertexAttribArray(attribute_texcoord);
-  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	
-  	glBindBuffer(GL_ARRAY_BUFFER, walls->vbo_cube_texcoords);
-  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
-
-	attribute_texcoord = glGetAttribLocation(program, "texcoord");
-  	glEnableVertexAttribArray(attribute_texcoord);
- 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glActiveTexture(GL_TEXTURE0);
-  	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
-  	uniform_mytexture = glGetUniformLocation(program, "texture");
-  	glUniform1i(uniform_mytexture, 0);*/
 
 
 	//glGenVertexArrays(1,&paddle->vaoID);
@@ -289,10 +254,10 @@ void WallsDraw(Walls_t * walls, GLuint program){
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	
+	//TEXTURE BINDING. IT HAS TO BE HERE! UNDERNEATH THE BIND ARRAYS
 	attribute_texcoord = glGetAttribLocation(program, "texcoord");
   	glEnableVertexAttribArray(attribute_texcoord);
   	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
 	
   	glBindBuffer(GL_ARRAY_BUFFER, walls->vbo_cube_texcoords);
   	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
@@ -305,6 +270,7 @@ void WallsDraw(Walls_t * walls, GLuint program){
   	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
   	uniform_mytexture = glGetUniformLocation(program, "texture");
   	glUniform1i(uniform_mytexture, 0);
+	//END TEXTURING
 	
 	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
