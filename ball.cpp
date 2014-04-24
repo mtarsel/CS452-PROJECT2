@@ -160,14 +160,14 @@ void BallInit(Ball_t * ball) {
 	GLfloat normalVector = 1.0f / sqrt(3.0f);
 
 	GLfloat vertexarray[]={
-				size,size,size,	//front top right
-				-size,size,size,	//front top left
-				size,-size,size,	//front bottom right
-				-size,-size,size,	//front bottom left
-				size,size,-size,	//back top right
-				-size,size,-size,	//back top left
-				size,-size,-size,	//back bottom right
-				-size,-size,-size	//back bottom left
+				size,size,size-10,	//front top right
+				-size,size,size-10,	//front top left
+				size,-size,size-10,	//front bottom right
+				-size,-size,size-10,	//front bottom left
+				size,size,-size-10,	//back top right
+				-size,size,-size-10,	//back top left
+				size,-size,-size-10,	//back bottom right
+				-size,-size,-size-10	//back bottom left
                        };
       
 	
