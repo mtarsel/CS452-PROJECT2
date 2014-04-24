@@ -128,7 +128,7 @@ int main(int argc, char * argv[]) {
 		   (GetBallCoord(&ball, 'l') <= ((x_trans/30)+3.5)) &&
 		   (GetBallCoord(&ball, 't') >= ((1-(y_trans/30.0))-3.8)) &&
 		   (GetBallCoord(&ball, 'b') <= ((1-(y_trans/30.0))+3.8)) &&
-		   (GetBallCoord(&ball, 'f') >= -1.0f) &&	//The paddle collision calculations
+		   (GetBallCoord(&ball, 'f') >= 0.0f) &&	//The paddle collision calculations
 		   (GetBallCoord(&ball, 'f') <= 1.0f)){	//
 		   	ball.dir_z=-1;
 		   	score++;
