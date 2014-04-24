@@ -20,7 +20,7 @@ void mouse_kb_input(SDL_Window* screen,int * x_trans, int * y_trans){
    	switch (event.type){
     	case SDL_QUIT:exit(0);break;
     	case SDL_KEYDOWN:
-      if(event.key.keysym.sym == SDLK_ESCAPE) exit(0);
+      	if(event.key.keysym.sym == SDLK_ESCAPE) exit(0);
     }
   }
 }
@@ -107,17 +107,32 @@ int main(int argc, char * argv[]) {
 	
 	EnvironmentInit();
 	WallsInit(&walls);
+	//Ball stuff
 	BallInit(&ball);
+	ball.dir_z=-1;
+	ball.dir_x=1;
+	ball.dir_y=1;
+	ball.speed=0.5;
+	
 	PaddleInit(&testpaddle);
 	int x_trans,y_trans;
 	while(true){
-	
+		
+		//Collision detections
+		if(GetBallCoord(&ball, 'd') < -320.0f) ball.dir_z=1; //bounce off back wall
+		else if(GetBallCoord(&ball, 'r') > 11.5f) ball.dir_x=-1; //bounce off right wall
+		else if(GetBallCoord(&ball, 'l') < -11.5f) ball.dir_x=1; //bounce off left wall
+		else if(GetBallCoord(&ball, 't') > 11.5f) ball.dir_y=-1; //bounce off top wall
+		else if(GetBallCoord(&ball, 'b') < -11.5f) ball.dir_y=1; //bounce off bottom wall
+		else if(GetBallCoord(&ball, 'f') > 50.0f) exit(0); //losing condition
+		//else if(GetBallCoord(&ball, 'f') > 0.0f) exit(0); //you lost
+		
 		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
 		//clear the screen before rendering a new frame
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		
 		WallsDraw(&walls, program);
-		BallDraw(&ball, x_trans, y_trans, program);
+		BallDraw(&ball, program);
 		PaddleDraw(&testpaddle, x_trans, y_trans, program);
 		SDL_GL_SwapWindow(window);
 	}

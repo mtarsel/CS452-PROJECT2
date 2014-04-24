@@ -4,8 +4,8 @@
 #include "globals.h"
 
 typedef struct {
-        GLfloat x, y, z;	//How should we go about these two? (translation)
-        GLfloat w, h;		//
+        int dir_x, dir_y, dir_z;
+        GLfloat speed;
         GLfloat vertexarray[24];
 	  GLfloat normalsarray[24];
      	  GLfloat colorarray[32];
@@ -16,8 +16,9 @@ typedef struct {
     	  GLuint texture_id;
 } Ball_t;
 
-void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint program);
+void BallDraw(Ball_t * ball, GLuint program);
 void BallInit(Ball_t * ball);
+GLfloat GetBallCoord(Ball_t * ball, char face);
 
 #endif
 

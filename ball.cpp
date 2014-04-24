@@ -2,7 +2,7 @@
 
 //static GLuint ball_texture;
 
-void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint program) {
+void BallDraw(Ball_t * ball, GLuint program) {
 	
 	
 	GLint uniform_mytexture;
@@ -47,17 +47,21 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 
 	
 	//THIS IS THE TRANSLATION
-	GLfloat trans_vert_array[24];
 	int i;
-	for(i=0; i<sizeof(trans_vert_array)/4; i++){
-		if((i%3)==0) trans_vert_array[i]=ball->vertexarray[i]+(x_trans/30);
-		//else if((i%3)==1) trans_vert_array[i]=paddle->vertexarray[i]+((1-y_trans)/350);
+	for(i=0; i<sizeof(ball->vertexarray)/4; i++){
+		if((i%3)==0){
+			ball->vertexarray[i]=ball->vertexarray[i]+(ball->dir_x)*ball->speed;
+			//printf("x: %f\n", trans_vert_array[i]);
+		}
+		else if((i%3)==1){
+			ball->vertexarray[i]=ball->vertexarray[i]+(ball->dir_y)*ball->speed;
+		//	printf("y: %f\n", trans_vert_array[i]);
+		} 
 		else if((i%3)==2){
-			trans_vert_array[i]=ball->vertexarray[i]+(y_trans);
+			ball->vertexarray[i]=ball->vertexarray[i]+(ball->dir_z)*(ball->speed)*3;
 			//printf("z: %f\n", trans_vert_array[i]);
 		}
-		
-		else trans_vert_array[i]=ball->vertexarray[i];
+		//else ball->vertexarray[i]=ball->vertexarray[i];
 		
 	}
 	
@@ -67,7 +71,7 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	
 	//glGenBuffers(2, paddle->vboID);
 	glBindBuffer(GL_ARRAY_BUFFER,ball->vboID[0]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(trans_vert_array),trans_vert_array,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(ball->vertexarray),ball->vertexarray,GL_STATIC_DRAW);
 	//glBufferData(GL_ARRAY_BUFFER,sizeof(paddle->vertexarray),paddle->vertexarray,GL_STATIC_DRAW);
 	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 
@@ -109,6 +113,26 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	glFlush();
 }
 	
+GLfloat GetBallCoord(Ball_t * ball, char face){
+	if(face == 'f'){ //forward face
+		return ball->vertexarray[2];
+	}
+	else if(face == 'd'){ //dorsal face
+		return ball->vertexarray[14];
+	}
+	else if(face == 't'){ //top face
+		return ball->vertexarray[1];
+	}
+	else if(face == 'b'){ //bottom face
+		return ball->vertexarray[7];
+	}
+	else if(face == 'l'){ //left face
+		return ball->vertexarray[3];
+	}
+	else if(face == 'r'){ //right face
+		return ball->vertexarray[0];
+	}
+}
 
 void BallInit(Ball_t * ball) {
 	
@@ -190,5 +214,12 @@ void BallInit(Ball_t * ball) {
 	for(i=0; i<sizeof(elems); i++){
 		ball->elems[i]=elems[i];
 	}
+	
+	//set the direction of the ball elements
+	ball->dir_x = 0;
+	ball->dir_y = 0;
+	ball->dir_z = 0;
+	ball->speed = 0.0;
+	
 }
 
