@@ -109,22 +109,70 @@ int main(int argc, char * argv[]) {
 	WallsInit(&walls);
 	//Ball stuff
 	BallInit(&ball);
+	
 	ball.dir_z=-1;
-	ball.dir_x=1;
-	ball.dir_y=1;
+	ball.dir_x=0;
+	ball.dir_y=0;
 	ball.speed=0.5;
+	int score = 0;
 	
 	PaddleInit(&testpaddle);
 	int x_trans,y_trans;
 	while(true){
 		
-		//Collision detections
-		if(GetBallCoord(&ball, 'd') < -320.0f) ball.dir_z=1; //bounce off back wall
-		else if(GetBallCoord(&ball, 'r') > 11.5f) ball.dir_x=-1; //bounce off right wall
-		else if(GetBallCoord(&ball, 'l') < -11.5f) ball.dir_x=1; //bounce off left wall
-		else if(GetBallCoord(&ball, 't') > 11.5f) ball.dir_y=-1; //bounce off top wall
-		else if(GetBallCoord(&ball, 'b') < -11.5f) ball.dir_y=1; //bounce off bottom wall
-		else if(GetBallCoord(&ball, 'f') > 50.0f) exit(0); //losing condition
+		if((GetBallCoord(&ball, 'r') >= ((x_trans/30)-3.5)) && 
+		   (GetBallCoord(&ball, 'l') <= ((x_trans/30)+3.5)) &&
+		   (GetBallCoord(&ball, 't') >= ((y_trans/30)-2.0)) &&
+		   (GetBallCoord(&ball, 'b') <= ((y_trans/30)+2.0)) &&
+		   (GetBallCoord(&ball, 'f') >= -1.0f) &&	//The paddle collision calculations
+		   (GetBallCoord(&ball, 'f') <= 1.0f)){	//
+		   	ball.dir_z=-1;
+		   	score++;
+		   	ball.speed+=0.1; //speeds up the ball on paddle hit
+		   	printf("X_TRANS: %f, %f\n", (x_trans/30)-3.5, x_trans/30);
+		   	printf("BALLCOORD: %f, %f\n", GetBallCoord(&ball, 'r'), GetBallCoord(&ball, 'l'));
+		   	
+		   	//for x,y modification of the ball
+		   	if((GetBallCoord(&ball, 'r') >= ((x_trans/30)-3.5)) && (GetBallCoord(&ball, 'l') <= ((x_trans/30)))) { 
+		   	   		printf("Hit left side.\n"); 
+		   	   		ball.dir_x-=(ball.speed/4);
+		   	   		//This if is for top
+		   	   		if((GetBallCoord(&ball, 't') >= ((y_trans/30)-2.0)) && (GetBallCoord(&ball, 't') <= ((y_trans/30)))) {
+		   	   			printf("Hit top side.\n"); 
+		   	   			ball.dir_y+=(ball.speed/4);
+		   	   		}
+		   	   		//This if is for bottom
+		   	   		if((GetBallCoord(&ball, 'b') <= ((y_trans/30)+2.0)) && (GetBallCoord(&ball, 'b') >= ((y_trans/30)))) {
+		   	   			printf("Hit bottom side.\n"); 
+		   	   			ball.dir_y-=(ball.speed/4);
+		   	   		}
+		   	   	}
+		   	   
+		   	if((GetBallCoord(&ball, 'l') <= ((x_trans/30)+3.5)) && (GetBallCoord(&ball, 'l') >= ((x_trans/30)))) { 
+		   	   		printf("Hit right side.\n"); 
+		   	   		ball.dir_x+=(ball.speed/4);
+		   	   		//This if is for top
+		   	   		if((GetBallCoord(&ball, 't') >= ((y_trans/30)-2.0)) && (GetBallCoord(&ball, 't') <= ((y_trans/30)))) {
+		   	   			printf("Hit top side.\n"); 
+		   	   			ball.dir_y+=(ball.speed/4);
+		   	   		}
+		   	   		//This if is for bottom
+		   	   		if((GetBallCoord(&ball, 'b') <= ((y_trans/30)+2.0)) && (GetBallCoord(&ball, 'b') >= ((y_trans/30)))) {
+		   	   			printf("Hit bottom side.\n"); 
+		   	   			ball.dir_y-=(ball.speed/4);
+		   	   		}
+		   	   }
+		   	
+		   } 
+		//Collision detections -- paddle comes first
+		//if(GetBallCoord(&ball, 'd') == 50.0f) ball.dir_z=-1;
+		
+		if(GetBallCoord(&ball, 'd') < -320.0f) ball.dir_z=-ball.dir_z; //bounce off back wall
+		if(GetBallCoord(&ball, 'r') > 11.5f) ball.dir_x=-ball.dir_x; //bounce off right wall
+		if(GetBallCoord(&ball, 'l') < -11.5f) ball.dir_x=-ball.dir_x; //bounce off left wall
+		if(GetBallCoord(&ball, 't') > 11.5f) ball.dir_y=-ball.dir_y; //bounce off top wall
+		if(GetBallCoord(&ball, 'b') < -11.5f) ball.dir_y=-ball.dir_y; //bounce off bottom wall
+		if(GetBallCoord(&ball, 'f') > 50.0f) break; //losing condition
 		//else if(GetBallCoord(&ball, 'f') > 0.0f) exit(0); //you lost
 		
 		mouse_kb_input(window, &x_trans, &y_trans);//keyboard controls
@@ -136,6 +184,8 @@ int main(int argc, char * argv[]) {
 		PaddleDraw(&testpaddle, x_trans, y_trans, program);
 		SDL_GL_SwapWindow(window);
 	}
+	
+	printf("Your score is: %i\n", score);
 
 	SDL_GL_DeleteContext(glcontext);
 	SDL_DestroyWindow(window);

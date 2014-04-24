@@ -4,7 +4,7 @@
 #include "globals.h"
 
 typedef struct {
-        int dir_x, dir_y, dir_z;
+        GLfloat dir_x, dir_y, dir_z;
         GLfloat speed;
         GLfloat vertexarray[24];
 	  GLfloat normalsarray[24];

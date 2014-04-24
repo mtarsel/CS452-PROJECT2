@@ -111,6 +111,7 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	//SDL_GL_SwapWindow(screen);
 };
 
+
 /* --------------------------------- IF YOU CHANGE THESE SIZES, change the declarations in the header file. Global declarations are probably a good idea -------------------------- */
 void PaddleInit(Paddle_t * paddle){
 
@@ -137,10 +138,11 @@ void PaddleInit(Paddle_t * paddle){
 	GLfloat size=4.5;
 	GLfloat normalVector = 1.0f / sqrt(2.0f);
 
-	GLfloat vertexarray[]={size,size/1.5,0.0f,
-				size,-size/1.5,0.0f,
-                       -size,-size/1.5,0.0f,
-                       -size,size/1.5,0.0f
+	GLfloat vertexarray[]={
+				size,size/1.5,0.0f, //top right
+				size,-size/1.5,0.0f, //bottom right
+                       -size,-size/1.5,0.0f, //bottom left
+                       -size,size/1.5,0.0f  //top left
                        };
       
 	
