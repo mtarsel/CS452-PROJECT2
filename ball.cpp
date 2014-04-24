@@ -17,7 +17,7 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	};
 
 	
-  	glActiveTexture(GL_TEXTURE0);
+  	/*glActiveTexture(GL_TEXTURE0);
   	glBindTexture(GL_TEXTURE_2D, ball->texture_id);
   	uniform_mytexture = glGetUniformLocation(program, "texture");
   	glUniform1i(uniform_mytexture, 0);
@@ -27,7 +27,7 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 
 	attribute_texcoord = glGetAttribLocation(program, "texcoord");
   	glEnableVertexAttribArray(attribute_texcoord);
- 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);*/
 	
 	//THIS IS THE TRANSLATION
 	GLfloat trans_vert_array[24];
@@ -73,6 +73,19 @@ void BallDraw(const Ball_t * ball, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, ball->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
+  
+  	glBindBuffer(GL_ARRAY_BUFFER, ball->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	
 	
 	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();

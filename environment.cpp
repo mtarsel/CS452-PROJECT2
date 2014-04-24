@@ -9,7 +9,8 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	GLint attribute_texcoord;
 	
 	//Texcoordinates  NOT WORKING
-	GLfloat cube_texcoords[2*4*6] = {
+
+	/*GLfloat cube_texcoords[2*4*6] = {
     		0.0f, 0.0f,
     		1.0f, 0.0f,
     		1.0f, 1.0f,
@@ -40,17 +41,20 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
     		1.0f, 1.0f,
     		0.0f, 1.0f
 
+	};*/
+	GLfloat cube_texcoords[4]={
+		0.0f, 1.0f,
+		1.0f, 0.0f
 	};
-	
 
 	
   	//glEnable(GL_DEPTH_TEST);
   
   	//glViewport(0, 0, 600, 600);
   
-  	glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
+  	/*glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
   	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
-
+	
 	attribute_texcoord = glGetAttribLocation(program, "texcoord");
   	glEnableVertexAttribArray(attribute_texcoord);
  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -58,7 +62,7 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	glActiveTexture(GL_TEXTURE0);
   	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
   	uniform_mytexture = glGetUniformLocation(program, "texture");
-  	glUniform1i(uniform_mytexture, 0);
+  	glUniform1i(uniform_mytexture, 0);*/
 
 
 	//THIS IS THE TRANSLATION
@@ -100,6 +104,19 @@ void PaddleDraw(Paddle_t * paddle, GLfloat x_trans, GLfloat y_trans, GLuint prog
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, paddle->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+	
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, paddle->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
+	
 	
 	glDrawElements(GL_QUADS,4,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
@@ -186,7 +203,7 @@ void WallsDraw(Walls_t * walls, GLuint program){
 	
 	//Texcoordinates
 	GLfloat cube_texcoords[2*4*6] = {
-    	/*	0.0f, 0.0f,
+    		0.0f, 0.0f,
     		1.0f, 0.0f,
     		1.0f, 1.0f,
     		0.0f, 1.0f,
@@ -215,7 +232,7 @@ void WallsDraw(Walls_t * walls, GLuint program){
     		1.0f, 0.0f,
     		1.0f, 1.0f,
     		0.0f, 1.0f
-*/
+
 	};
 
 	
@@ -226,9 +243,9 @@ void WallsDraw(Walls_t * walls, GLuint program){
   	
   	
 
-	//attribute_texcoord = glGetAttribLocation(program, "texcoord");
-  	//glEnableVertexAttribArray(attribute_texcoord);
-  	//glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	/*attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 	
   	glBindBuffer(GL_ARRAY_BUFFER, walls->vbo_cube_texcoords);
@@ -241,22 +258,8 @@ void WallsDraw(Walls_t * walls, GLuint program){
 	glActiveTexture(GL_TEXTURE0);
   	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
   	uniform_mytexture = glGetUniformLocation(program, "texture");
-  	glUniform1i(uniform_mytexture, 0);
+  	glUniform1i(uniform_mytexture, 0);*/
 
-
-
-
-//----------------------------------------------------------
-
-
-
-
-
-
-
-	//glGenVertexArrays(1,&paddle->vaoID);
-	//glGenBuffers(2, paddle->vboID);
-	//glGenBuffers(1,&paddle->eboID);
 
 	//glGenVertexArrays(1,&paddle->vaoID);
 	glBindVertexArray(walls->vaoID);
@@ -285,6 +288,23 @@ void WallsDraw(Walls_t * walls, GLuint program){
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+  	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	
+  	glBindBuffer(GL_ARRAY_BUFFER, walls->vbo_cube_texcoords);
+  	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_texcoords), cube_texcoords, GL_STATIC_DRAW);
+
+	attribute_texcoord = glGetAttribLocation(program, "texcoord");
+  	glEnableVertexAttribArray(attribute_texcoord);
+ 	glVertexAttribPointer(attribute_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+  	glBindTexture(GL_TEXTURE_2D, walls->texture_id);
+  	uniform_mytexture = glGetUniformLocation(program, "texture");
+  	glUniform1i(uniform_mytexture, 0);
 	
 	glDrawElements(GL_QUADS,24,GL_UNSIGNED_BYTE,NULL);
 	glFlush();
